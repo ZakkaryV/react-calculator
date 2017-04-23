@@ -13,11 +13,11 @@ h2 {
 .App {
   display: flex;
   justify-content: center;
-
 }
 
 .calc-container {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
   max-width: 768px;
 }
 
@@ -79,8 +79,27 @@ button:hover {
 
 .history {
   color: rgba(255,255,255,0.7);
+  display: inline-block;
 }
 
 .history > ul {
+  padding: 0;
   list-style-type: none;
+  text-align: left;
+}
+
+.history > ul > li {
+  padding: 10px 0px;
+}
+
+ul {
+    transform: rotate(180deg);
+}
+ul > li {
+    transform: rotate(-180deg);
+}
+
+.button-container > div {
+  display: flex;
+  justify-content: space-between;
 }

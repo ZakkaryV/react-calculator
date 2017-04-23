@@ -22,6 +22,7 @@ class App extends Component {
     this.doMath = this.doMath.bind(this);
     this.backButton = this.backButton.bind(this);
     this.keyDown = this.keyDown.bind(this);
+    this.showHistory = this.showHistory.bind(this);
 
   }
 
@@ -139,6 +140,10 @@ class App extends Component {
       console.log(keyCode);
   }
 
+  showHistory() {
+    console.log('showhistory');
+  }
+
   render() {
     return (
       <div className="App">
@@ -150,7 +155,8 @@ class App extends Component {
                    operations={this.state.operations} />
           <ButtonGrid appendChar={this.appendChar}
                       resetInitialState={this.resetInitialState} 
-                      backButton={this.backButton} />
+                      backButton={this.backButton} 
+                      showHistory={this.showHistory} />
           <History answers={this.state.answers} />
         </div>
       </div>

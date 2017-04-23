@@ -7,9 +7,7 @@ class History extends Component {
         let items = this.props.answers.map((val) => {
 
             if (this.props.answers.length > 0) {
-            return <tr>{val}</tr>
-            } else {
-                return <li>your history will go here</li>
+                return <li>{val}</li>
             }
             
         });
