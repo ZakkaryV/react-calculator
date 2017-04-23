@@ -17,9 +17,9 @@ class History extends Component {
         return (
             <div className="history">
                 <h3>History</h3>
-                <table>
+                <ul>
                    {items}
-                </table>
+                </ul>
             </div>
         )
     }
