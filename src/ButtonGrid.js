@@ -7,13 +7,13 @@ class ButtonGrid extends Component {
       <div className="button-container">
             <div>
                 <button type="submit" onClick={this.props.resetInitialState} value={'1'}>C</button>
-                <button><i className="fa fa-long-arrow-left"></i></button>
+                <button type="submit" onClick={this.props.backButton} ><i className="fa fa-long-arrow-left"></i></button>
             </div>
 
             <div>
-                <button type="submit" onClick={this.props.appendChar} value={'1'}>1</button>
-                <button type="submit" onClick={this.props.appendChar} value={'2'}>2</button>
-                <button type="submit" onClick={this.props.appendChar} value={'3'}>3</button>
+                <button type="submit" onClick={this.props.appendChar} value={'7'}>7</button>
+                <button type="submit" onClick={this.props.appendChar} value={'8'}>8</button>
+                <button type="submit" onClick={this.props.appendChar} value={'9'}>9</button>
                 <button type="submit" onClick={this.props.appendChar} value={'+'}>+</button>
             </div>
 
@@ -25,9 +25,9 @@ class ButtonGrid extends Component {
             </div>
 
             <div>
-                <button type="submit" onClick={this.props.appendChar} value={'7'}>7</button>
-                <button type="submit" onClick={this.props.appendChar} value={'8'}>8</button>
-                <button type="submit" onClick={this.props.appendChar} value={'9'}>9</button>
+                <button type="submit" onClick={this.props.appendChar} value={'1'}>1</button>
+                <button type="submit" onClick={this.props.appendChar} value={'2'}>2</button>
+                <button type="submit" onClick={this.props.appendChar} value={'3'}>3</button>
                 <button type="submit" onClick={this.props.appendChar} value={'*'}>*</button>
             </div>
 

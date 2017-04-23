@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import ButtonGrid from './ButtonGrid';
 import Display from './Display';
+import History from './History';
 
 class App extends Component {
   constructor() {
@@ -11,58 +12,74 @@ class App extends Component {
       display: '',
       result: '',
       operations: [],
-      isInit: false,
-      firstTime: false,
-      canPress: true,
-      valuesList: [],
-      prevVal: '',
-      prevOp: '',
+      values: [],
+      newNum: false,
+      answers: [],
     }
 
     this.resetInitialState = this.resetInitialState.bind(this);
     this.appendChar = this.appendChar.bind(this);
     this.doMath = this.doMath.bind(this);
+    this.backButton = this.backButton.bind(this);
 
   }
 
   appendChar(e) {
-    let currentState = this.state;
-    let opsArray = this.state.operations;
 
-    if (/[0-9]/g.test(e.target.value)) {
+    // if integer is pressed
 
-      this.setState({canPress: true});
-      
-      if (this.state.isInit === true) {
-        this.setState({result: e.target.value, isInit: false});
-        this.setState({prevVal: e.target.value});
-      } else {
-        currentState.result = currentState.result + e.target.value;
-        this.setState({currentState});
+    if (/[0-9.]/g.test(e.target.value)) {
+
+      let newVal = this.state.result + e.target.value;
+      this.setState({result: newVal});
+
+      // after operator is pressed, allow overwrite of state.result
+
+      if (this.state.newNum) {
+
+        this.setState({result: e.target.value, newNum: false})
+
       }
-    } else if (/=/g.test(e.target.value)) {
 
-        let acc = this.state.operations;
-        let store = acc.pop();
-        acc.push(this.state.prevOp);
-        acc.push(parseInt(this.state.prevVal));
-        console.log(acc)
-        this.resetInitialState();
-        this.setState({result: eval(acc.join(' ')) });
-        acc.push(store);
 
-    } else if (!/[0-9=]/g.test(e.target.value) && this.state.canPress) {
-          this.setState({canPress: false});
-          opsArray.push(parseInt(currentState.result));
-          opsArray.push(e.target.value);
-          
-          if (this.state.firstTime) {
-              this.doMath(opsArray);
-          }
 
-          this.setState({prevOp: e.target.value })
-          this.setState({isInit: true, operations: opsArray, firstTime: true});
     }
+
+    // if operator is pressed
+
+    else if (/[*-/+]/g.test(e.target.value)) {
+
+      let addOp  = this.state.operations;
+
+      if (this.state.result) {
+      addOp.push(this.state.result);
+      addOp.push(e.target.value);
+      }
+
+
+      this.doMath(this.state.result, this.state.operations);
+
+      this.setState({operations: addOp, newNum: true})
+
+    } 
+
+    // if = sign is pressed
+
+    else if (/[=]/g.test(e.target.value)) {
+
+      let array = this.state.operations;
+      array.push(this.state.result);
+      let newResult = eval( array.join(' ') );
+      let newAnswers = this.state.answers;
+      newAnswers.push(newResult);
+      this.setState({result: newResult, operations: [], newNum: true});
+
+      console.log(this.state.answers);
+
+    }
+
+
+
   }
 
   resetInitialState() {
@@ -70,32 +87,26 @@ class App extends Component {
       display: '',
       result: '',
       operations: [],
-      isInit: false,
-      firstTime: false,
-      canPress: true,
-      valuesList: []
     })
   }
 
-  doMath(arr) {
+  doMath(curr, arr) {
 
-    let index = arr[1];
+    let storeVal = arr.pop();
+    let newVal = this.state.values;
+    newVal.push(eval(arr.join(' ')));
+    Math.round(newVal * 100 / 100);
+    this.setState({values: newVal, result: newVal[newVal.length -1]});
+    console.log(  this.state.values  );
+    arr.push(storeVal);
 
-    let ops = {
-      '+': () => { return arr[0] + arr[2] },
-      '-': () => { return arr[0] - arr[2] },
-      '*': () => { return arr[0] * arr[2] },
-      '/': () => { return arr[0] / arr[2] },
-    }
+  }
 
-    if (this.state.operations.length < 5) {
-      let newArray = [ ops[index]() ]
-      this.setState({result: newArray[0]}, );
-    } else {
-      let acc = this.state.operations;
-      let store = acc.pop();
-      this.setState({result: eval(acc.join(' ')) });
-      acc.push(store);
+  backButton() {
+
+    if (this.state.result !== '') {
+      let newResult = this.state.result.substring(0, this.state.result.length - 1);
+      this.setState({result: newResult});
     }
   }
 
@@ -108,7 +119,9 @@ class App extends Component {
                    result={this.state.result}
                    operations={this.state.operations} />
           <ButtonGrid appendChar={this.appendChar}
-                      resetInitialState={this.resetInitialState} />
+                      resetInitialState={this.resetInitialState} 
+                      backButton={this.backButton} />
+          <History answers={this.state.answers} />
         </div>
       </div>
     );
