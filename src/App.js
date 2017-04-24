@@ -119,9 +119,13 @@ class App extends Component {
   keyDown(e) {
     let keyCode = e.keyCode;
     switch (keyCode) {
+
+      // number pad keys
+
       case 8:  this.backButton(); break;
       case 13: this.appendChar({target: {value: '='}}); break;
       case 96: this.appendChar({target: {value: '0'}}); break;
+      case 97: this.appendChar({target: {value: '1'}}); break;
       case 97: this.appendChar({target: {value: '1'}}); break;
       case 98: this.appendChar({target: {value: '2'}}); break;
       case 99: this.appendChar({target: {value: '3'}}); break;
@@ -136,6 +140,25 @@ class App extends Component {
       case 106: this.appendChar({target: {value: '*'}}); break;
       case 110: this.appendChar({target: {value: '.'}}); break;
       case 111: this.appendChar({target: {value: '/'}}); break;
+
+      // top number keys
+
+      case 187: this.appendChar({target: {value: '='}}); break;
+      case 48: this.appendChar({target: {value: '0'}}); break;
+      case 49: this.appendChar({target: {value: '1'}}); break;
+      case 50: this.appendChar({target: {value: '2'}}); break;
+      case 51: this.appendChar({target: {value: '3'}}); break;
+      case 52: this.appendChar({target: {value: '4'}}); break;
+      case 53: this.appendChar({target: {value: '5'}}); break;
+      case 54: this.appendChar({target: {value: '6'}}); break;
+      case 55: this.appendChar({target: {value: '7'}}); break;
+      case 56: this.appendChar({target: {value: '8'}}); break;
+      case 57: this.appendChar({target: {value: '9'}}); break;
+      case 107: this.appendChar({target: {value: '+'}}); break;
+      case 189: this.appendChar({target: {value: '-'}}); break;
+      case 106: this.appendChar({target: {value: '*'}}); break;
+      case 190: this.appendChar({target: {value: '.'}}); break;
+      case 191: this.appendChar({target: {value: '/'}}); break;
     }
       console.log(keyCode);
   }
